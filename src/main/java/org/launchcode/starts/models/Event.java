@@ -11,16 +11,18 @@ public class Event extends AbstractEntity{
     @Size(min=2, max=50, message = "Event name must be between 2 and 50 characters")
     private String name;
 
-//    @NotNull(message = "Category required")
-//    private String category;
+    @NotNull(message = "Art type required")
+    private ArtType type;
+
 
 
     //Constructors
 
     public Event() {}
 
-    public Event(String name) {
+    public Event(String name, ArtType type) {
         this.name = name;
+        this.type = type;
     }
 
 
@@ -32,5 +34,13 @@ public class Event extends AbstractEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArtType getType() {
+        return type;
+    }
+
+    public void setType(ArtType type) {
+        this.type = type;
     }
 }
