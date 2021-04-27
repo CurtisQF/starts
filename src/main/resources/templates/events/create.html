@@ -3,33 +3,103 @@
 <head th:replace="fragments :: head"></head>
 <body class="container">
 
-<h1>Create Event</h1>
+<header th:replace="fragments :: header"></header>
+
+<h2>Create Event</h2>
 
 <form method="post">
-    <div class="form-group">
-        <label>Event Name:
-            <input th:field="${event.name}">
-        </label>
-        <p class="error" th:errors="${event.name}"></p>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Promoter
+                <input th:field="${event.promoter}" id="disabledInput" type="text">
+            </label>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Company
+                <input th:field="${event.company}">
+            </label>
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Event Name
+                <input th:field="${event.name}">
+            </label>
+            <p class="error" th:errors="${event.name}"></p>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Art Type
+                <select th:field="${event.type}">
+                    <option value="">----</option>
+                    <option th:each="type : ${artTypes}"
+                            th:value="${type}"
+                            th:text="${type.displayName}">
+                    </option>
+                </select>
+            </label>
+            <p class="error" th:errors="${event.type}"></p>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Artist Level
+                <select th:field="${event.level}">
+                    <option value="">----</option>
+                    <option th:each="level : ${artLevels}"
+                            th:value="${level}"
+                            th:text="${level.displayName}">
+                    </option>
+                </select>
+            </label>
+            <p class="error" th:errors="${event.level}"></p>
+        </div>
     </div>
 
     <div class="form-group">
-        <label>Art Type:
-            <select th:field="${event.type}">
-                <option value="">----</option>
-                <option th:each="type : ${artTypes}"
-                        th:value="${type}"
-                        th:text="${type.displayName}">
-                </option>
-            </select>
+        <label>Description:
+            <textarea class="form-control" th:field="${event.description}" rows="3"></textarea>
         </label>
-        <p class="error" th:errors="${event.type}"></p>
+        <p class="error" th:errors="${event.description}"></p>
     </div>
 
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Start Date:
+                <input id="datepicker" th:field="${event.startDate}">
+            </label>
+            <p class="error" th:errors="${event.startDate}"></p>
+        </div>
+        <div class="form-group col-md-6">
+            <label>End Date:
+                <input th:field="${event.endDate}">
+            </label>
+            <p class="error" th:errors="${event.endDate}"></p>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Price (lowest):
+                <input th:field="${event.priceLow}">
+            </label>
+            <p class="error" th:errors="${event.priceLow}"></p>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Price (highest):
+                <input th:field="${event.priceHigh}">
+            </label>
+            <p class="error" th:errors="${event.priceHigh}"></p>
+        </div>
+    </div>
 
     <input type="submit" class="btn btn-primary" value="Add Event" />
 </form>
 
+<script type="text/javascript">
+  $(function() {
+    $("#datepicker").datepicker();
+  });
+</script>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package org.launchcode.starts.controllers;
 
 import org.launchcode.starts.data.EventRepository;
+import org.launchcode.starts.models.ArtLevel;
 import org.launchcode.starts.models.ArtType;
 import org.launchcode.starts.models.Event;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class EventController {
     public String displayCreateEventForm(Model model) {
         model.addAttribute(new Event());
         model.addAttribute("artTypes", ArtType.values());
+        model.addAttribute("artLevels", ArtLevel.values());
         return "events/create";
     }
 
@@ -32,6 +34,7 @@ public class EventController {
     public String submitCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
         if(errors.hasErrors()) {
             model.addAttribute("artTypes", ArtType.values());
+            model.addAttribute("artLevels", ArtLevel.values());
             return "events/create";
         }
 
