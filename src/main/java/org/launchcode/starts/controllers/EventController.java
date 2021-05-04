@@ -22,9 +22,11 @@ public class EventController {
     @Autowired
     private EventRepository eventRepository;
 
-    @GetMapping
+    @GetMapping("")
     public String showEvents(Model model) {
-        return "";
+        model.addAttribute("events", eventRepository.findAll());
+
+        return "events/index";
     }
 
     @GetMapping("create")

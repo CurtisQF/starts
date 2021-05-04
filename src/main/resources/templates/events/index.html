@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th='http://www.thymeleaf.org/'>
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
 
-<p>This is where events will be shown.</p>
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Event</th>
+            <th>Type</th>
+            <th>Level</th>
+            <th>Date</th>
+            <th>Price Range</th>
+            <th>Tickets</th>
+        </tr>
+    </thead>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.company}"></td>
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.type.displayName}"></td>
+        <td th:text="${event.level.displayName}"></td>
+        <td th:text="${event.date1}"></td>
+        <td th:text="'$' + ${event.priceLow} + '-' + '$' + ${event.priceHigh}"></td>
+        <td><a th:href="${event.URL}" target="_blank"><button class="btn btn-sm btn-outline-secondary" type="button">Tix</button></a></td>
+    </tr>
 </body>
 </html>

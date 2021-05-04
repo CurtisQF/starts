@@ -85,6 +85,12 @@
             </label>
             <p class="error" th:errors="${event.priceHigh}"></p>
         </div>
+        <div class="form-group col-md-4">
+            <label>Ticket URL:
+                <input th:field="${event.URL}">
+            </label>
+            <p class="error" th:errors="${event.URL}"></p>
+        </div>
     </div>
 
 
@@ -98,17 +104,6 @@
     <input type="submit" class="btn btn-primary" value="Add Event" />
 </form>
 
-<div th:fragment="scripts">
-    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</div>
-
-<script type="text/javascript">
-  $(function() {
-    $("#datepicker").datepicker();
-  });
-</script>
 
 </body>
 </html>
