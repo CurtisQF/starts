@@ -22,6 +22,11 @@ public class EventController {
     @Autowired
     private EventRepository eventRepository;
 
+    @GetMapping
+    public String showEvents(Model model) {
+        return "";
+    }
+
     @GetMapping("create")
     public String displayCreateEventForm(Model model) {
         model.addAttribute(new Event());

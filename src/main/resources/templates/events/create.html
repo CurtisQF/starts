@@ -55,45 +55,54 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label>Description:
-            <textarea class="form-control" th:field="${event.description}" rows="3"></textarea>
-        </label>
-        <p class="error" th:errors="${event.description}"></p>
-    </div>
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label>Start Date:
-                <input id="datepicker" th:field="${event.startDate}">
+            <label>Date/Time 1:
+                <input type="datetime-local" th:field="${event.date1}">
             </label>
-            <p class="error" th:errors="${event.startDate}"></p>
+            <p class="error" th:errors="${event.date1}"></p>
         </div>
         <div class="form-group col-md-6">
-            <label>End Date:
-                <input th:field="${event.endDate}">
+            <label>Date/Time 2:
+                <input type="datetime-local" th:field="${event.date2}">
             </label>
-            <p class="error" th:errors="${event.endDate}"></p>
+            <p class="error" th:errors="${event.date2}"></p>
         </div>
     </div>
 
+
     <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Price (lowest):
+        <div class="form-group col-md-4">
+            <label>Price (low):  $
                 <input th:field="${event.priceLow}">
             </label>
             <p class="error" th:errors="${event.priceLow}"></p>
         </div>
-        <div class="form-group col-md-6">
-            <label>Price (highest):
+        <div class="form-group col-md-4">
+            <label>Price (high):  $
                 <input th:field="${event.priceHigh}">
             </label>
             <p class="error" th:errors="${event.priceHigh}"></p>
         </div>
     </div>
 
+
+    <div class="form-group">
+        <label>Description:</label>
+        <textarea class="form-control" th:field="${event.description}" rows="3"></textarea>
+        <p class="error" th:errors="${event.description}"></p>
+    </div>
+
+
     <input type="submit" class="btn btn-primary" value="Add Event" />
 </form>
+
+<div th:fragment="scripts">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</div>
 
 <script type="text/javascript">
   $(function() {

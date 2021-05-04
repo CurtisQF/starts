@@ -6,14 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 public class Event extends AbstractEntity{
-
-    private static final String DATE_FORMAT_PATTERN = "MM/dd/yyyy";
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT_PATTERN);
 
     //    @OneToMany
     @NotNull
@@ -33,15 +29,13 @@ public class Event extends AbstractEntity{
     @NotNull(message = "Art level required")
     private ArtLevel level;
 
-    @Size(max=500, message="Description cannot be larger than 500 characters.")
+    @Size(max=500, message="Description cannot be longer than 500 characters.")
     private String description;
 
-    @NotNull(message = "Event start date required")
-    @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
-    private Date startDate;
+    @NotNull(message = "Event date required")
+    private String date1;
 
-    @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
-    private Date endDate;
+    private String date2;
 
     @PositiveOrZero(message = "Cannot be lower than $0.")
     private int priceLow;
@@ -52,20 +46,19 @@ public class Event extends AbstractEntity{
     @URL(message = "Invalid URL")
     private String URL;
 
-
     //Constructors
 
     public Event() {}
 
-    public Event(String promoter, String company, String name, ArtType type, ArtLevel level, String description, Date startDate, Date endDate, int priceLow, int priceHigh, String URL) {
+    public Event(String promoter, String company, String name, ArtType type, ArtLevel level, String description, String date1, String date2, int priceLow, int priceHigh, String URL) {
         this.promoter = promoter;
         this.company = company;
         this.name = name;
         this.type = type;
         this.level = level;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.date1 = date1;
+        this.date2 = date2;
         this.priceLow = priceLow;
         this.priceHigh = priceHigh;
         this.URL = URL;
@@ -121,29 +114,27 @@ public class Event extends AbstractEntity{
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getDate1() {
+        return date1;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setDate1(String date1) {
+        this.date1 = date1;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getDate2() {
+        return date2;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDate2(String date2) {
+        this.date2 = date2;
     }
 
     public int getPriceLow() {
         return priceLow;
     }
 
-    public void setPriceLow(int priceLow) {
-        this.priceLow = priceLow;
-    }
+    public void setPriceLow(int priceLow) { this.priceLow = priceLow; }
 
     public int getPriceHigh() {
         return priceHigh;
@@ -160,4 +151,5 @@ public class Event extends AbstractEntity{
     public void setURL(String URL) {
         this.URL = URL;
     }
+
 }
