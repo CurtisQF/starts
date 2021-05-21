@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("events")
@@ -23,8 +21,19 @@ public class EventController {
     private EventRepository eventRepository;
 
     @GetMapping("")
-    public String showEvents(Model model) {
-        model.addAttribute("events", eventRepository.findAll());
+    public String showEvents(@RequestParam(required = false) Integer eventId, Model model) {
+
+        if (eventId == null) {
+            model.addAttribute("events", eventRepository.findAll());
+        } else {
+            Optional<Event> result = eventRepository.findById(eventId);
+            if (result.isEmpty()) {
+                model.addAttribute("error", "Invalid Event ID: " + eventId);
+            } else {
+                Event event = result.get();
+                model.addAttribute("events", event.getId());
+            }
+        }
 
         return "events/index";
     }
@@ -47,6 +56,5 @@ public class EventController {
 
         eventRepository.save(newEvent);
         return "redirect:";
-
     }
 }
