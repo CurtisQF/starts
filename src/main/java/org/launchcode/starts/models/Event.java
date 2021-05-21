@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ public class Event extends AbstractEntity{
     @NotNull
     private String promoter;
 
-    //    @OneToMany
+    @ManyToOne
     @NotNull(message = "Company required")
     private String company;
 
