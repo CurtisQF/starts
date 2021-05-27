@@ -1,10 +1,109 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th='http://www.thymeleaf.org/'>
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
-<body>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<h2>Create Company</h2>
+
+<form method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Promoter
+                <input th:field="${company.promoter}" id="disabledInput" type="text">
+            </label>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Company
+                <input th:field="${company.name}">
+            </label>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Art Type
+                <select th:field="${company.type}">
+                    <option value="">----</option>
+                    <option th:each="type : ${artTypes}"
+                            th:value="${type}"
+                            th:text="${type.displayName}">
+                    </option>
+                </select>
+            </label>
+            <p class="error" th:errors="${company.type}"></p>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Artist Level
+                <select th:field="${company.level}">
+                    <option value="">----</option>
+                    <option th:each="level : ${artLevels}"
+                            th:value="${level}"
+                            th:text="${level.displayName}">
+                    </option>
+                </select>
+            </label>
+            <p class="error" th:errors="${company.level}"></p>
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <lable>Address
+                <input th:field="${company.address}"
+            </lable>
+        </div>
+        <div class="form-group col-md-2">
+            <lable>City
+                <input th:field="${company.city}"
+            </lable>
+        </div>
+        <div class="form-group col-md-2">
+            <lable>State
+                <select th:field="${company.state}">
+                    <option value="">----</option>
+                    <option th:each="state : ${states}"
+                            th:value="${state}"
+                            th:text="${state.displayName}">
+                    </option>
+                </select>
+            </lable>
+        </div>
+        <div class="form-group col-md-2">
+            <lable>Zip
+                <input th:field="${company.zipCode}"
+            </lable>
+            <p class="error" th:errors="${company.zipCode}"></p>
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <lable>Phone
+                <input th:field="${company.phone}"
+            </lable>
+        </div><div class="form-group col-md-6">
+            <label>Home-page URL
+                <input th:field="${company.URL}">
+            </label>
+            <p class="error" th:errors="${company.URL}"></p>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label>Description:</label>
+        <textarea class="form-control" th:field="${company.description}" rows="3"></textarea>
+        <p class="error" th:errors="${company.description}"></p>
+    </div>
+
+
+    <input type="submit" class="btn btn-primary" value="Add Company" />
+</form>
+
 
 </body>
 </html>

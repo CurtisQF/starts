@@ -16,7 +16,14 @@
         </div>
         <div class="form-group col-md-6">
             <label>Company
-                <input th:field="${event.company}">
+                <select th:field="${event.company}"}
+                    <option value="">----</option>
+                    <option th:each="company : ${companies}"
+                            th:value="${company.id}"
+                            th:text="${company.name}">
+                    </option>
+                </select>
+                <p class="error" th:errors="${event.company}"></p>
             </label>
         </div>
     </div>

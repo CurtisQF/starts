@@ -1,5 +1,6 @@
 package org.launchcode.starts.controllers;
 
+import org.launchcode.starts.data.CompanyRepository;
 import org.launchcode.starts.data.EventRepository;
 import org.launchcode.starts.models.ArtLevel;
 import org.launchcode.starts.models.ArtType;
@@ -19,6 +20,9 @@ public class EventController {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @GetMapping("")
     public String showEvents(@RequestParam(required = false) Integer eventId, Model model) {
@@ -43,6 +47,7 @@ public class EventController {
         model.addAttribute(new Event());
         model.addAttribute("artTypes", ArtType.values());
         model.addAttribute("artLevels", ArtLevel.values());
+        model.addAttribute("companies", companyRepository.findAll());
         return "events/create";
     }
 

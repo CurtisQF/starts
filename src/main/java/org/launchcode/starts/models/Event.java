@@ -1,5 +1,6 @@
 package org.launchcode.starts.models;
 
+import org.hibernate.validator.constraints.CodePointLength;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,7 +21,7 @@ public class Event extends AbstractEntity{
 
     @ManyToOne
     @NotNull(message = "Company required")
-    private String company;
+    private Company company;
 
     @NotNull(message = "Event name required")
     @Size(min=2, max=50, message = "Event name must be between 2 and 50 characters")
@@ -53,7 +54,7 @@ public class Event extends AbstractEntity{
 
     public Event() {}
 
-    public Event(String promoter, String company, String name, ArtType type, ArtLevel level, String date1, String date2, int priceLow, int priceHigh, String URL, String description) {
+    public Event(String promoter, Company company, String name, ArtType type, ArtLevel level, String date1, String date2, int priceLow, int priceHigh, String URL, String description) {
         this.promoter = promoter;
         this.company = company;
         this.name = name;
@@ -78,11 +79,11 @@ public class Event extends AbstractEntity{
         this.promoter = promoter;
     }
 
-    public String getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 

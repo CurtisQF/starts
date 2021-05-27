@@ -1,6 +1,5 @@
 package org.launchcode.starts.models;
 
-import java.util.ArrayList;
 
 public enum ArtType {
 

@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th='http://www.thymeleaf.org/'>
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
-<body>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<h1>Companies</h1>
+<p align="right"><a class="btn btn-primary" th:href="@{companies/create}">Create</a></p>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Company</th>
+        <th>Type</th>
+        <th>Level</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Web</th>
+    </tr>
+    </thead>
+    <tr th:each="company : ${companies}">
+        <td th:text="${company.name}"></td>
+        <td th:text="${company.type.displayName}"></td>
+        <td th:text="${company.level.displayName}"></td>
+        <td th:text="${company.phone}"></td>
+        <td th:text="${company.address}"></td>
+        <td th:text="${company.city}"></td>
+        <td th:text="${company.state.displayName}"></td>
+        <td th:text="${company.zipCode}"></td>
+        <td><a th:href="${company.URL}" target="_blank"><button class="btn btn-sm btn-outline-secondary" type="button">Link</button></a></td>
+    </tr>
+</body>
+</html>
 
 </body>
 </html>

@@ -6,11 +6,13 @@
 <header th:replace="fragments :: header"></header>
 
 <h1>Events</h1>
+<p align="right"><a class="btn btn-primary" th:href="@{events/create}">Create</a></p>
+
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Company</th>
             <th>Event</th>
+            <th>Company</th>
             <th>Type</th>
             <th>Level</th>
             <th>Date/Time</th>
@@ -19,8 +21,8 @@
         </tr>
     </thead>
     <tr th:each="event : ${events}">
-        <td th:text="${event.company}"></td>
         <td th:text="${event.name}"></td>
+        <td th:text="${event.company.name}"></td>
         <td th:text="${event.type.displayName}"></td>
         <td th:text="${event.level.displayName}"></td>
         <td th:text="${event.date1}"></td>

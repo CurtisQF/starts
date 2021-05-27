@@ -37,6 +37,7 @@ public class Company extends AbstractEntity{
 
     private State state;
 
+    @Size(min=5, max=9, message = "Zipcode must be 5-9 digits with no dashes")
     private String zipCode;
 
     @URL(message = "Complete URL with 'HTTP' required")
