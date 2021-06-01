@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("companies")
@@ -51,5 +49,22 @@ public class CompanyController {
 
         companyRepository.save(newCompany);
         return "redirect:";
+    }
+
+    @GetMapping("detail")
+    public String displayCompanyDetails(@RequestParam Integer companyId, Model model) {
+
+        Optional<Company> result = companyRepository.findById(companyId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Company ID: " + companyId);
+        } else {
+            Company company = result.get();
+            model.addAttribute("title", company.getName());
+            model.addAttribute("company", company);
+            model.addAttribute("events", eventRepository.findAll());
+        }
+
+        return "companies/detail";
     }
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th='http://www.thymeleaf.org/'>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<h1 th:text="${title}"></h1>
+
+<br>
+
+<h5>Classifications:</h5>
+<span th:text="'Art type: ' + ${company.type.displayName}"></span><br>
+<span th:text="'Artist level: ' + ${company.level.displayName}"></span>
+<br><br>
+
+<h5>Website:</h5>
+<a th:href="${company.URL}" th:text="${company.URL}" target="_blank"></a>
+<br><br>
+
+<h5>Contact:</h5>
+<span th:text="${company.address}"></span><br>
+<span th:text="${company.city} + ', ' + ${company.state.displayName} + ' ' + ${company.zipCode}"></span><br>
+<span th:text="${company.phone}"></span>
+<br><br>
+
+<div th:if="${company.description == null}">
+<h5>Description:</h5>
+<span th:text="${company.description}"></span>
+<br><br>
+</div>
+
+<h3 th:text="${title} + ' Events'">Events</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Event</th>
+        <th>Company</th>
+        <th>Type</th>
+        <th>Level</th>
+        <th>Date/Time</th>
+        <th>Price</th>
+        <th>Tickets</th>
+    </tr>
+    </thead>
+    <tr th:each="event : ${events}" th:if="${event.company.name == title}">
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.company.name}"></td>
+        <td th:text="${event.type.displayName}"></td>
+        <td th:text="${event.level.displayName}"></td>
+        <td th:text="${event.date1}"></td>
+        <td th:text="'$' + ${event.priceLow} + '-' + '$' + ${event.priceHigh}"></td>
+        <td><a th:href="${event.URL}" target="_blank"><button class="btn btn-sm btn-outline-secondary" type="button">Tix</button></a></td>
+    </tr>
+</table>
+
+</body>
+</html>
