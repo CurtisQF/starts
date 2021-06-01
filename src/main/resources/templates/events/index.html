@@ -21,8 +21,8 @@
         </tr>
     </thead>
     <tr th:each="event : ${events}">
-        <td th:text="${event.name}"></td>
-        <td th:text="${event.company.name}"></td>
+        <td><a th:href=" '/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></a></td>
+        <td><a th:href=" '/companies/detail?companyId=' + ${event.company.id}" th:text="${event.company.name}"></a></td>
         <td th:text="${event.type.displayName}"></td>
         <td th:text="${event.level.displayName}"></td>
         <td th:text="${event.date1}"></td>

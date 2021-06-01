@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th='http://www.thymeleaf.org/'>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<h1 th:text="${title}"></h1>
+<br>
+
+<h5>Company:</h5>
+<a th:href=" '/companies/detail?companyId=' + ${event.company.id}" th:text="${event.company.name}"></a>
+<br><br>
+
+<h5>Classification:</h5>
+<span th:text="'Art type: ' + ${event.type.displayName}"></span><br>
+<span th:text="'Artist level: ' + ${event.level.displayName}"></span>
+<br><br>
+
+<h5>Date/Time:</h5>
+<span th:text="${event.date1}"></span>
+<br><br>
+
+<h5>Price:</h5>
+<span th:text="'$' + ${event.priceLow} + '-' + '$' + ${event.priceHigh}"></span>
+<br><br>
+
+<a th:href="${event.URL}" target="_blank"><button class="btn btn-sm btn-outline-secondary" type="button">Tix</button></a>
+
+<div th:if="${event.description == null}">
+    <h5>Description:</h5>
+    <span th:text="${event.description}"></span>
+    <br><br>
+</div>
+
+</body>
+</html>

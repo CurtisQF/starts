@@ -4,6 +4,7 @@ import org.launchcode.starts.data.CompanyRepository;
 import org.launchcode.starts.data.EventRepository;
 import org.launchcode.starts.models.ArtLevel;
 import org.launchcode.starts.models.ArtType;
+import org.launchcode.starts.models.Company;
 import org.launchcode.starts.models.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,20 +26,8 @@ public class EventController {
     private CompanyRepository companyRepository;
 
     @GetMapping("")
-    public String showEvents(@RequestParam(required = false) Integer eventId, Model model) {
-
-        if (eventId == null) {
-            model.addAttribute("events", eventRepository.findAll());
-        } else {
-            Optional<Event> result = eventRepository.findById(eventId);
-            if (result.isEmpty()) {
-                model.addAttribute("error", "Invalid Event ID: " + eventId);
-            } else {
-                Event event = result.get();
-                model.addAttribute("events", event.getId());
-            }
-        }
-
+    public String showEvents(Model model) {
+        model.addAttribute("events", eventRepository.findAll());
         return "events/index";
     }
 
@@ -62,4 +51,22 @@ public class EventController {
         eventRepository.save(newEvent);
         return "redirect:";
     }
+
+    @GetMapping("detail")
+    public String displayEventDetails(@RequestParam Integer eventId, Model model) {
+
+        Optional<Event> result = eventRepository.findById(eventId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Event ID: " + eventId);
+        } else {
+            Event event = result.get();
+            model.addAttribute("title", event.getName());
+            model.addAttribute("event", event);
+//            model.addAttribute("events", eventRepository.findAll());
+        }
+
+        return "events/detail";
+    }
+
 }
