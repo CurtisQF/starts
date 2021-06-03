@@ -2,16 +2,15 @@ package org.launchcode.starts.controllers;
 
 import org.launchcode.starts.data.CompanyRepository;
 import org.launchcode.starts.data.EventRepository;
-import org.launchcode.starts.models.ArtLevel;
-import org.launchcode.starts.models.ArtType;
-import org.launchcode.starts.models.Company;
-import org.launchcode.starts.models.Event;
+import org.launchcode.starts.data.UserRepository;
+import org.launchcode.starts.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -25,6 +24,12 @@ public class EventController {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    private static final String userSessionKey = "user";
+
+
     @GetMapping("")
     public String showEvents(Model model) {
         model.addAttribute("events", eventRepository.findAll());
@@ -32,8 +37,14 @@ public class EventController {
     }
 
     @GetMapping("create")
-    public String displayCreateEventForm(Model model) {
-        model.addAttribute(new Event());
+    public String displayCreateEventForm(HttpSession session, Model model) {
+
+        Integer userId = (Integer) session.getAttribute(userSessionKey);
+        Optional<User> sessionUser = userRepository.findById(userId);
+        User user = sessionUser.get();
+
+        model.addAttribute(new Event(user));
+        model.addAttribute("sessionUser", user);
         model.addAttribute("artTypes", ArtType.values());
         model.addAttribute("artLevels", ArtLevel.values());
         model.addAttribute("companies", companyRepository.findAll());
@@ -41,10 +52,17 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public String submitCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
+    public String submitCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model, HttpSession session) {
         if(errors.hasErrors()) {
+
+            Integer userId = (Integer) session.getAttribute(userSessionKey);
+            Optional<User> sessionUser = userRepository.findById(userId);
+            User user = sessionUser.get();
+
+            model.addAttribute("sessionUser", user);
             model.addAttribute("artTypes", ArtType.values());
             model.addAttribute("artLevels", ArtLevel.values());
+            model.addAttribute("companies", companyRepository.findAll());
             return "events/create";
         }
 

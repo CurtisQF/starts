@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
@@ -14,10 +15,10 @@ import java.util.Date;
 @Entity
 public class Event extends AbstractEntity{
 
-
-    //    @OneToMany
+    @ManyToOne
+    @JoinColumn
     @NotNull
-    private String promoter;
+    private User user;
 
     @ManyToOne
     @NotNull(message = "Company required")
@@ -54,8 +55,12 @@ public class Event extends AbstractEntity{
 
     public Event() {}
 
-    public Event(String promoter, Company company, String name, ArtType type, ArtLevel level, String date1, String date2, int priceLow, int priceHigh, String URL, String description) {
-        this.promoter = promoter;
+    public Event(User user) {
+        this.user = user;
+    }
+
+    public Event(User user, Company company, String name, ArtType type, ArtLevel level, String date1, String date2, int priceLow, int priceHigh, String URL, String description) {
+        this.user = user;
         this.company = company;
         this.name = name;
         this.type = type;
@@ -71,12 +76,13 @@ public class Event extends AbstractEntity{
 
 //Get-sets
 
-    public String getPromoter() {
-        return promoter;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setPromoter(String promoter) {
-        this.promoter = promoter;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Company getCompany() {

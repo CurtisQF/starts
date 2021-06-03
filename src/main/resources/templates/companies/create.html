@@ -13,7 +13,7 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             <label>Promoter</label>
-            <input type="hidden" th:field="${company.user}" class="form-control" readonly>
+            <input th:field="${company.user}" type="hidden" class="form-control">
             <i><p th:text="${sessionUser.username}"></p></i>
             <p class="error" th:errors="${company.user}"></p>
         </div>

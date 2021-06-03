@@ -5,105 +5,99 @@
 
 <header th:replace="fragments :: header"></header>
 
-<h2>Create Event</h2>
+<br>
+<h1>Create Event</h1>
+<br>
 
 <form method="post">
     <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Promoter
-                <input th:field="${event.promoter}" id="disabledInput" type="text">
-            </label>
+        <div class="form-group col-md-4">
+            <label>Promoter</label>
+                <input th:field="${event.user}" type="hidden" class="form-control">
+                <i><p th:text="${sessionUser.username}"></p></i>
+                <p class="error" th:errors="${event.user}"></p>
         </div>
-        <div class="form-group col-md-6">
-            <label>Company
-                <select th:field="${event.company}"}
-                    <option value="">----</option>
-                    <option th:each="company : ${companies}"
-                            th:value="${company.id}"
-                            th:text="${company.name}">
-                    </option>
-                </select>
-                <p class="error" th:errors="${event.company}"></p>
-            </label>
+        <div class="form-group col-md-4">
+            <label>Company</label>
+            <select th:field="${event.company}" class="form-control">
+                <option value="">----</option>
+                <option th:each="company : ${companies}"
+                        th:value="${company.id}"
+                        th:text="${company.name}">
+                </option>
+            </select>
+            <p class="error" th:errors="${event.company}"></p>
         </div>
     </div>
 
-
+<br>
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label>Event Name
-                <input th:field="${event.name}">
-            </label>
+            <label>Event Name</label>
+            <input th:field="${event.name}" class="form-control">
             <p class="error" th:errors="${event.name}"></p>
         </div>
-        <div class="form-group col-md-4">
-            <label>Art Type
-                <select th:field="${event.type}">
-                    <option value="">----</option>
-                    <option th:each="type : ${artTypes}"
-                            th:value="${type}"
-                            th:text="${type.displayName}">
-                    </option>
-                </select>
-            </label>
+        <div class="form-group col-md-2">
+            <label>Art Type</label>
+            <select th:field="${event.type}" class="form-control">
+                <option value="">----</option>
+                <option th:each="type : ${artTypes}"
+                        th:value="${type}"
+                        th:text="${type.displayName}">
+                </option>
+            </select>
             <p class="error" th:errors="${event.type}"></p>
         </div>
-        <div class="form-group col-md-4">
-            <label>Artist Level
-                <select th:field="${event.level}">
-                    <option value="">----</option>
-                    <option th:each="level : ${artLevels}"
-                            th:value="${level}"
-                            th:text="${level.displayName}">
-                    </option>
-                </select>
-            </label>
+        <div class="form-group col-md-2">
+            <label>Artist Level</label>
+            <select th:field="${event.level}" class="form-control">
+                <option value="">----</option>
+                <option th:each="level : ${artLevels}"
+                        th:value="${level}"
+                        th:text="${level.displayName}">
+                </option>
+            </select>
             <p class="error" th:errors="${event.level}"></p>
         </div>
     </div>
 
-
+<br>
     <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Date/Time 1:
-                <input type="datetime-local" th:field="${event.date1}">
-            </label>
-            <p class="error" th:errors="${event.date1}"></p>
-        </div>
-        <div class="form-group col-md-6">
-            <label>Date/Time 2:
-                <input type="datetime-local" th:field="${event.date2}">
-            </label>
-            <p class="error" th:errors="${event.date2}"></p>
-        </div>
-    </div>
-
-
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label>Price (low):  $
-                <input th:field="${event.priceLow}">
-            </label>
+        <div class="form-group col-md-2">
+            <label>Price (low):  $</label>
+            <input th:field="${event.priceLow}" class="form-control">
             <p class="error" th:errors="${event.priceLow}"></p>
         </div>
-        <div class="form-group col-md-4">
-            <label>Price (high):  $
-                <input th:field="${event.priceHigh}">
-            </label>
+        <div class="form-group col-md-2">
+            <label>Price (high):  $</label>
+            <input th:field="${event.priceHigh}" class="form-control">
             <p class="error" th:errors="${event.priceHigh}"></p>
         </div>
         <div class="form-group col-md-4">
-            <label>Ticket URL:
-                <input th:field="${event.URL}">
-            </label>
+            <label>Ticket URL:</label>
+            <input th:field="${event.URL}" class="form-control">
             <p class="error" th:errors="${event.URL}"></p>
         </div>
     </div>
 
+<br>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Date/Time 1:</label>
+            <input type="datetime-local" th:field="${event.date1}" class="form-control">
+            <p class="error" th:errors="${event.date1}"></p>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Date/Time 2:</label>
+            <input type="datetime-local" th:field="${event.date2}" class="form-control">
+            <p class="error" th:errors="${event.date2}"></p>
+        </div>
+    </div>
 
+<br>
     <div class="form-group">
         <label>Description:</label>
-        <textarea class="form-control" th:field="${event.description}" rows="3"></textarea>
+        <textarea th:field="${event.description}" class="form-control" rows="3"></textarea>
         <p class="error" th:errors="${event.description}"></p>
     </div>
 
