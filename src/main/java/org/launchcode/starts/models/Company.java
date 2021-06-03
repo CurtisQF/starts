@@ -2,8 +2,7 @@ package org.launchcode.starts.models;
 
 import org.hibernate.validator.constraints.URL;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -12,9 +11,10 @@ import java.util.List;
 @Entity
 public class Company extends AbstractEntity{
 
-    //    @OneTo...
+    @ManyToOne
+    @JoinColumn
     @NotNull
-    private String promoter;
+    private User user;
 
     @OneToMany(mappedBy = "company")
     private final List<Event> events = new ArrayList<>();
@@ -50,8 +50,12 @@ public class Company extends AbstractEntity{
 
     public Company () {}
 
-    public Company(String promoter, String name, ArtType type, ArtLevel level, String phone, String address, String city, State state, String zipCode, String URL, String description) {
-        this.promoter = promoter;
+    public Company(User user) {
+        this.user = user;
+    }
+
+    public Company(User user, String name, ArtType type, ArtLevel level, String phone, String address, String city, State state, String zipCode, String URL, String description) {
+        this.user = user;
         this.name = name;
         this.type = type;
         this.level = level;
@@ -66,12 +70,12 @@ public class Company extends AbstractEntity{
 
     //Get-sets
 
-    public String getPromoter() {
-        return promoter;
+    public User getUser() {
+        return user;
     }
 
-    public void setPromoter(String promoter) {
-        this.promoter = promoter;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Event> getEvents() {

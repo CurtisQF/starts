@@ -5,95 +5,87 @@
 
 <header th:replace="fragments :: header"></header>
 
-<h2>Create Company</h2>
+<br>
+<h1>Create Company</h1>
+<br>
 
 <form method="post">
     <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Promoter
-                <input th:field="${company.promoter}" id="disabledInput" type="text">
-            </label>
+        <div class="form-group col-md-4">
+            <label>Promoter</label>
+            <input type="hidden" th:field="${company.user}" class="form-control" readonly>
+            <i><p th:text="${sessionUser.username}"></p></i>
+            <p class="error" th:errors="${company.user}"></p>
         </div>
-        <div class="form-group col-md-6">
-            <label>Company
-                <input th:field="${company.name}">
-            </label>
+        <div class="form-group col-md-4">
+            <label>Company</label>
+                <input th:field="${company.name}" type="text" class="form-control" >
+                <p class="error" th:errors="${company.name}"></p>
         </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Art Type
-                <select th:field="${company.type}">
+        <div class="form-group col-md-2">
+            <label>Art Type</label>
+                <select th:field="${company.type}" class="form-control" >
                     <option value="">----</option>
                     <option th:each="type : ${artTypes}"
                             th:value="${type}"
                             th:text="${type.displayName}">
                     </option>
                 </select>
-            </label>
             <p class="error" th:errors="${company.type}"></p>
         </div>
-        <div class="form-group col-md-4">
-            <label>Artist Level
-                <select th:field="${company.level}">
+        <div class="form-group col-md-2">
+            <label>Artist Level</label>
+                <select th:field="${company.level}" class="form-control" >
                     <option value="">----</option>
                     <option th:each="level : ${artLevels}"
                             th:value="${level}"
                             th:text="${level.displayName}">
                     </option>
                 </select>
-            </label>
             <p class="error" th:errors="${company.level}"></p>
         </div>
     </div>
 
-
+    <br>
     <div class="form-row">
         <div class="form-group col-md-4">
-            <lable>Address
-                <input th:field="${company.address}"
-            </lable>
+            <label>Address</label>
+                <input th:field="${company.address}" class="form-control" >
         </div>
-        <div class="form-group col-md-2">
-            <lable>City
-                <input th:field="${company.city}"
-            </lable>
+        <div class="form-group col-md-4">
+            <label>City</label>
+                <input th:field="${company.city}" class="form-control" >
         </div>
-        <div class="form-group col-md-2">
-            <lable>State
-                <select th:field="${company.state}">
+        <div class="form-check col-md-1">
+            <label>State</label>
+                <select th:field="${company.state}" class="form-control">
                     <option value="">----</option>
                     <option th:each="state : ${states}"
                             th:value="${state}"
                             th:text="${state.displayName}">
                     </option>
                 </select>
-            </lable>
         </div>
-        <div class="form-group col-md-2">
-            <lable>Zip
-                <input th:field="${company.zipCode}"
-            </lable>
+        <div class="form-group col-md-3">
+            <label>Zip</label>
+                <input th:field="${company.zipCode}" class="form-control">
             <p class="error" th:errors="${company.zipCode}"></p>
         </div>
     </div>
 
-
+    <br>
     <div class="form-row">
-        <div class="form-group col-md-6">
-            <lable>Phone
-                <input th:field="${company.phone}"
-            </lable>
-        </div><div class="form-group col-md-6">
-            <label>Home-page URL
-                <input th:field="${company.URL}">
-            </label>
+        <div class="form-group col-md-4">
+            <label>Phone</label>
+                <input th:field="${company.phone}" class="form-control">
+        </div><div class="form-group col-md-4">
+            <label>Home-page URL</label>
+                <input th:field="${company.URL}" class="form-control">
             <p class="error" th:errors="${company.URL}"></p>
         </div>
     </div>
 
-
+    <br>
     <div class="form-group">
         <label>Description:</label>
         <textarea class="form-control" th:field="${company.description}" rows="3"></textarea>

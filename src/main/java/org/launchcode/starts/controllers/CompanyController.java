@@ -2,6 +2,7 @@ package org.launchcode.starts.controllers;
 
 import org.launchcode.starts.data.CompanyRepository;
 import org.launchcode.starts.data.EventRepository;
+import org.launchcode.starts.data.UserRepository;
 import org.launchcode.starts.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -22,6 +24,12 @@ public class CompanyController {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    private static final String userSessionKey = "user";
+
+
     @GetMapping("")
     public String displayCompanies(Model model) {
         model.addAttribute("companies", companyRepository.findAll());
@@ -30,8 +38,14 @@ public class CompanyController {
 
 
     @GetMapping("create")
-    public String displayCreateCompanyForm(Model model) {
-        model.addAttribute(new Company());
+    public String displayCreateCompanyForm(HttpSession session, Model model) {
+
+        Integer userId = (Integer) session.getAttribute(userSessionKey);
+        Optional<User> sessionUser = userRepository.findById(userId);
+        User user = sessionUser.get();
+
+        model.addAttribute(new Company(user));
+        model.addAttribute("sessionUser", user);
         model.addAttribute("artTypes", ArtType.values());
         model.addAttribute("artLevels", ArtLevel.values());
         model.addAttribute("states", State.values());
@@ -39,8 +53,14 @@ public class CompanyController {
     }
 
     @PostMapping("create")
-    public String submitCreateCompanyForm(@ModelAttribute @Valid Company newCompany, Errors errors, Model model) {
+    public String submitCreateCompanyForm(@ModelAttribute @Valid Company newCompany, Errors errors, Model model, HttpSession session) {
         if(errors.hasErrors()) {
+
+            Integer userId = (Integer) session.getAttribute(userSessionKey);
+            Optional<User> sessionUser = userRepository.findById(userId);
+            User user = sessionUser.get();
+
+            model.addAttribute("sessionUser", user);
             model.addAttribute("artTypes", ArtType.values());
             model.addAttribute("artLevels", ArtLevel.values());
             model.addAttribute("states", State.values());

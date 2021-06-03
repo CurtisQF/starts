@@ -5,8 +5,8 @@
 
 <header th:replace="fragments :: header"></header>
 
+<br>
 <h1 th:text="${title}"></h1>
-
 <br>
 
 <h5>Classifications:</h5>
@@ -44,7 +44,7 @@
     </tr>
     </thead>
     <tr th:each="event : ${events}" th:if="${event.company.name == title}">
-        <td><a th:href=" '/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></td>
+        <td><a th:href=" '/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></a></td>
         <td th:text="${event.company.name}"></td>
         <td th:text="${event.type.displayName}"></td>
         <td th:text="${event.level.displayName}"></td>

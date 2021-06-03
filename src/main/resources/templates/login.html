@@ -9,16 +9,14 @@
 <p align="right"><a class="btn btn-primary" href="/logout">Logout</a></p>
 
 <form method="post">
-    <div class="form-group">
-        <label th:for="username">Username (email address)
+    <div class="form-group col-md-6">
+        <label th:for="username">Username (email address)</label>
             <input class="form-control" th:field="${loginFormDTO.username}">
-        </label>
         <p class="error" th:errors="${loginFormDTO.username}"></p>
     </div>
-    <div class="form-group">
-        <label>Password
+    <div class="form-group col-md-6">
+        <label>Password</label>
             <input class="form-control" th:field="${loginFormDTO.password}" type="password">
-        </label>
         <p class="error" th:errors="${loginFormDTO.password}"></p>
     </div>
 
